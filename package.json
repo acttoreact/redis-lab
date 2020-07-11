@@ -34,7 +34,9 @@
   "author": "Act to React (https://a2r.com/)",
   "license": "MIT",
   "homepage": "https://a2r.com/",
-  "dependencies": {},
+  "dependencies": {
+    "redis": "^3.0.2"
+  },
   "devDependencies": {
     "typescript": "^3.5.3",
     "@types/jest": "^25.1.1",
