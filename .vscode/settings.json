@@ -5,6 +5,8 @@
     "binpar",
     "camelcase",
     "downlevel",
+    "hget",
+    "hset",
     "lcov",
     "plusplus",
     "respawn",
