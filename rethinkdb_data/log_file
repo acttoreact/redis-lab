@@ -16,3 +16,6 @@
 2020-07-13T12:16:06.594100242 90.887747s info: Table 6420017f-5bc1-4c23-a269-a50714e8e234: Starting a new Raft election for term 1.
 2020-07-13T12:16:06.595179058 90.888826s info: Table 6420017f-5bc1-4c23-a269-a50714e8e234: Added replica on this server.
 2020-07-13T12:16:06.609620639 90.903267s info: Table 6420017f-5bc1-4c23-a269-a50714e8e234: This server is Raft leader for term 1. Latest log index is 0.
+2020-07-13T15:52:52.987118790 13097.280765s info: Table 6420017f-5bc1-4c23-a269-a50714e8e234: Configuration is changing.
+2020-07-13T15:53:00.451571771 13104.745218s info: Table 6420017f-5bc1-4c23-a269-a50714e8e234: Configuration is changing.
+2020-07-13T15:53:04.141846817 13108.435493s info: Table 6420017f-5bc1-4c23-a269-a50714e8e234: Configuration is changing.
