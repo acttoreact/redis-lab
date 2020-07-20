@@ -1,14 +1,12 @@
 import redis from 'redis';
-import asyncRedis from 'async-redis';
 import shortid from 'shortid';
 
 /**
  * Connect to the Redis server
  */
 const redisClient = redis.createClient();
-const asyncRedisClient = asyncRedis.decorate(redisClient);
 
-asyncRedisClient.on('error', (error): void => {
+redisClient.on('error', (error): void => {
   // eslint-disable-next-line no-console
   console.error(error);
 });
@@ -20,23 +18,39 @@ export interface AccessInfo {
 
 const getKeyFromToken = (token: string): string => `prh.access.token.${token}`;
 
-export const registerToken = async (info: AccessInfo): Promise<string> => {
+export const generateToken = async <T>(info: T): Promise<string> => {
   const token = shortid.generate();
   const key = getKeyFromToken(token);
   const value = JSON.stringify(info);
-  await asyncRedisClient.set(key , value);
-  // Expires in 60 seconds
-  await asyncRedisClient.expire(key , 60);
-  return token;
-}
+  return new Promise<string>((resolve, reject) => {
+    // Adds the value associated with the key and stores it for 60 seconds
+    redisClient.set(key, value, 'EX', 60, (err, reply) => {
+      if (reply === 'OK') {
+        resolve(token);
+      } else {
+        reject(err);
+      }
+    });
+  });
+};
 
-export const useToken = async (token: string): Promise<AccessInfo> => {
+export const useToken = async <T>(token: string): Promise<T> => {
   const key = getKeyFromToken(token);
-  const value =  await asyncRedisClient.get(key) as unknown as string;
-  await asyncRedisClient.del(key);
-  return JSON.parse(value) as AccessInfo;
-}
+  return new Promise<T>((resolve, reject) => {
+    // Gets the value associates with the key and removes it only using one redis transaction
+    redisClient.multi()
+      .get(key)
+      .del(key)
+      .exec((err, reply) => {
+      if (reply) {
+        return resolve(JSON.parse(reply[0]) as T);
+      }
+      if (err) reject(err);
+      return resolve(null);
+    });
+  });
+};
 
 export const disconnect = (): void => {
   redisClient.end(true);
-}
+};
