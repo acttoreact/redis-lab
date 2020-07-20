@@ -36,12 +36,15 @@
   "homepage": "https://a2r.com/",
   "dependencies": {
     "async-redis": "^1.1.7",
-    "redis": "^3.0.2"
+    "redis": "^3.0.2",
+    "shortid": "^2.2.15"
   },
   "devDependencies": {
+    "@types/async-redis": "^1.1.1",
     "@types/jest": "^25.1.1",
     "@types/node": "^13.13.4",
     "@types/redis": "^2.8.25",
+    "@types/shortid": "0.0.29",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
     "babel-jest": "^25.5.1",
