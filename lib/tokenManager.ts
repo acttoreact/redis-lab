@@ -37,7 +37,8 @@ export const pushToken = async <T>(info: T): Promise<string> => {
 export const popToken = async <T>(token: string): Promise<T> => {
   const key = getKeyFromToken(token);
   return new Promise<T>((resolve, reject) => {
-    // Gets the value associates with the key and removes it only using one redis transaction
+    // Gets the value associates with the key and removes it 
+    // using only one redis transaction
     redisClient
       .multi()
       .get(key)
