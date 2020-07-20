@@ -38,16 +38,17 @@ export const popToken = async <T>(token: string): Promise<T> => {
   const key = getKeyFromToken(token);
   return new Promise<T>((resolve, reject) => {
     // Gets the value associates with the key and removes it only using one redis transaction
-    redisClient.multi()
+    redisClient
+      .multi()
       .get(key)
       .del(key)
       .exec((err, reply) => {
-      if (reply) {
-        return resolve(JSON.parse(reply[0]) as T);
-      }
-      if (err) reject(err);
-      return resolve(null);
-    });
+        if (reply) {
+          return resolve(JSON.parse(reply[0]) as T);
+        }
+        if (err) reject(err);
+        return resolve(null);
+      });
   });
 };
 
