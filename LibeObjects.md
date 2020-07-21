@@ -1,4 +1,4 @@
-# Conceptos generale de Live Objects
+# Conceptos generales de Live Objects
 
 ## Suscripción puntual desde el lado cliente
 
